@@ -1,0 +1,146 @@
+
+
+
+
+
+LOGGING SESSION START ###########################################################################
+
+2025-06-12T21:34:27.547803+01:00 [ ERROR ] ThreadID 61100 ObjectId 0x0000000000000000 : T2 5 error message received
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.549370+01:00 [ ERROR ] ThreadID 45628 ObjectId 0x0000000000000000 : T1 error message received
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.549757+01:00 [WARNING] ThreadID 61100 ObjectId 0x0000000000000000 : T2 warning 'reindeer' is not valid
+
+2025-06-12T21:34:27.550371+01:00 [ INFO  ] ThreadID 61100 ObjectId 0x0000000000000000 : T2 4.40 was entered
+
+2025-06-12T21:34:27.550845+01:00 [ INFO  ] ThreadID 45628 ObjectId 0x0000000000000000 : T1 4.45, 2.345000 and 4.678000 was entered
+
+2025-06-12T21:34:27.551212+01:00 [ ERROR ] ThreadID 45628 ObjectId 0x0000000000000000 : T1 error message
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.551601+01:00 [ ERROR ] ThreadID 61100 ObjectId 0x0000000000000000 : T2 error message
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.551941+01:00 [WARNING] ThreadID 61100 ObjectId 0x0000000000000000 : T2 warning message
+
+2025-06-12T21:34:27.552249+01:00 [ INFO  ] ThreadID 61100 ObjectId 0x0000000000000000 : T2 info message
+
+2025-06-12T21:34:27.552573+01:00 [WARNING] ThreadID 45628 ObjectId 0x0000000000000000 : T1 warning message
+
+2025-06-12T21:34:27.552976+01:00 [ INFO  ] ThreadID 45628 ObjectId 0x0000000000000000 : T1 info message
+
+2025-06-12T21:34:27.554416+01:00 [ ERROR ] ThreadID 18300 ObjectId 0x0000000000000000 : T1 error message received
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.554903+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x0000000000000000 : T1 4.45, 2.345000 and 4.678000 was entered
+
+2025-06-12T21:34:27.555291+01:00 [ ERROR ] ThreadID 18300 ObjectId 0x0000000000000000 : T1 error message
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.555673+01:00 [WARNING] ThreadID 18300 ObjectId 0x0000000000000000 : T1 warning message
+
+2025-06-12T21:34:27.556123+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x0000000000000000 : T1 info message
+
+2025-06-12T21:34:27.556569+01:00 [ ERROR ] ThreadID 18300 ObjectId 0x0000000000000000 : T2 5 error message received
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.557031+01:00 [WARNING] ThreadID 18300 ObjectId 0x0000000000000000 : T2 warning 'reindeer' is not valid
+
+2025-06-12T21:34:27.557407+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x0000000000000000 : T2 4.40 was entered
+
+2025-06-12T21:34:27.557797+01:00 [ ERROR ] ThreadID 18300 ObjectId 0x0000000000000000 : T2 error message
+Stack trace:
+End of stack trace
+
+
+2025-06-12T21:34:27.558358+01:00 [WARNING] ThreadID 18300 ObjectId 0x0000000000000000 : T2 warning message
+
+2025-06-12T21:34:27.558734+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x0000000000000000 : T2 info message
+
+2025-06-12T21:34:27.559828+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000000A200EFF308 : Scope duration 410us, (0.410000ms)
+
+2025-06-12T21:34:27.560834+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5980 : unrolled 2000000
+
+2025-06-12T21:34:27.563967+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : Input float String: 1.123456
+
+2025-06-12T21:34:27.564577+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : Output float String: 1.123456
+
+2025-06-12T21:34:27.564959+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : Input double String: 123456789.1234567
+
+2025-06-12T21:34:27.565367+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : Output double String: 123456789.1234567
+
+2025-06-12T21:34:27.566680+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5610 : TEST 5 - (+90, +90, +90): Point: (1.00, 2.00, 3.00)
+
+2025-06-12T21:34:27.567195+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5610 :               Transformed Point: (3.00, -2.00, 1.00)
+
+2025-06-12T21:34:27.569742+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5980 : ########## Test Start ##########
+
+2025-06-12T21:34:27.571145+01:00 [ INFO  ] ThreadID 58972 ObjectId 0x0000000000000000 : Server received from 127.0.0.1:51716 message: Hello World
+
+2025-06-12T21:34:27.686865+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5980 : ########## Test End ##########
+
+2025-06-12T21:34:27.689062+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : ########## Test Start ##########
+
+2025-06-12T21:34:27.690021+01:00 [ INFO  ] ThreadID 70940 ObjectId 0x0000000000000000 : Server received from 127.0.0.1:56834 message: Hello World
+
+2025-06-12T21:34:27.798551+01:00 [ INFO  ] ThreadID 15020 ObjectId 0x0000000000000000 : Server received from 127.0.0.1:56835 message: Hello World2
+
+2025-06-12T21:34:27.907432+01:00 [ INFO  ] ThreadID 78976 ObjectId 0x0000000000000000 : Server received from 127.0.0.1:56836 message: Hello World3
+
+2025-06-12T21:34:28.014134+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D4C60 : ########## Test End ##########
+
+2025-06-12T21:34:28.016439+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5980 : ########## Test Start ##########
+
+2025-06-12T21:34:28.020273+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B48473C050 : IpClient::IpClient() configured for client that sends to guid: 00000000-0000-0000-0000-000000000000, on address: 127.255.255.255:5000
+
+2025-06-12T21:34:28.022148+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B48473CCB0 : IpClient::IpClient() configured for client that sends to guid: 00000000-0000-0000-0000-000000000001, on address: 127.0.0.1:5000
+
+2025-06-12T21:34:28.023916+01:00 [ INFO  ] ThreadID 71488 ObjectId 0x0000000000000000 : MockIpCallback received message: HelloWorld 1
+
+2025-06-12T21:34:28.043774+01:00 [ INFO  ] ThreadID 79024 ObjectId 0x0000000000000000 : MockIpCallback received message: HelloWorld 2
+
+2025-06-12T21:34:28.058596+01:00 [ INFO  ] ThreadID 79024 ObjectId 0x0000000000000000 : MockIpCallback received message: HelloWorld 3
+
+2025-06-12T21:34:28.167101+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5980 : ########## Test End ##########
+
+2025-06-12T21:34:28.169283+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5D40 : ########## Test Start ##########
+
+2025-06-12T21:34:28.169673+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5D40 : inputs initialised
+
+2025-06-12T21:34:28.170244+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5D40 : serialising
+
+2025-06-12T21:34:28.170754+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5D40 : deserialising
+
+2025-06-12T21:34:28.171259+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5D40 : ########## Test End ##########
+
+2025-06-12T21:34:28.172162+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5020 : ########## Test Start ##########
+
+2025-06-12T21:34:28.177468+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B48473C830 : IpClient::IpClient() configured for client that sends to guid: 00000000-0000-0000-0000-000000000000, on address: 192.168.1.255:5000
+
+2025-06-12T21:34:28.180242+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B48473D5B0 : IpClient::IpClient() configured for client that sends to guid: 00000000-0000-0000-0000-000000000001, on address: 192.168.1.140:5000
+
+2025-06-12T21:34:28.182781+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000000A200EFEB30 : Bearer::initialise Bearer has been initialised
+
+2025-06-12T21:34:28.183237+01:00 [ TRACE ] ThreadID 67160 ObjectId 0x000001B484917AC0 : UdpClient::Impl::try_connect Connected to address: 192.168.1.255 on port: 5000
+
+2025-06-12T21:34:28.183998+01:00 [ TRACE ] ThreadID 67160 ObjectId 0x000001B484926200 : UdpClient::Impl::try_connect Connected to address: 192.168.1.140 on port: 5000
+
+2025-06-12T21:34:29.273239+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000001B4848D5020 : ########## Test End ##########
+
+2025-06-12T21:34:29.274169+01:00 [ INFO  ] ThreadID 18300 ObjectId 0x000000A200EFEB30 : Bearer::shutdown() Bearer shutdown called

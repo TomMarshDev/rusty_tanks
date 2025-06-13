@@ -1,0 +1,4 @@
+- fire bullets at turret angle
+- bullets follow arc
+- bullets explode on impact
+- add server
