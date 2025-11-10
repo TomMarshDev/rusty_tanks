@@ -27,6 +27,7 @@ fn main() {
         elevate_canon,
         rotate_turret,
         tag_turret_after_spawn, 
+        enemy_shoot_player,
     ))
     .run();
 }
@@ -76,13 +77,23 @@ fn setup(
         Collider::cuboid(10.0, 0.1, 10.0)
     ));
 
-    //Tank
+    // Player Tank
     commands.spawn((
         Transform::from_xyz(0.0, 0.5, 0.0),
         RigidBody::Dynamic,
         Collider::cuboid(0.64,0.4,0.8),
         SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("tankBlend.glb"))),
-        Tank
+        PlayerTank,
+    ));
+
+    // Enemy Tank
+    commands.spawn((
+        Transform::from_xyz(6.0, 0.5, 6.0),
+        RigidBody::Dynamic,
+        Collider::cuboid(0.64,0.4,0.8),
+        SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("tankBlend.glb"))),
+        EnemyTank,
+        EnemyAI { shoot_cooldown: 1.5 },
     ));
 
     //Pushable cylinder
@@ -109,28 +120,85 @@ fn setup(
 }
 
 #[derive(Component)]
-struct TankTurret;
+struct PlayerTank;
 
 #[derive(Component)]
-struct TankCanon;
+struct EnemyTank;
+
+#[derive(Component)]
+struct EnemyAI {
+    shoot_cooldown: f32,
+}
+
+#[derive(Component)]
+struct PlayerTankTurret;
+
+#[derive(Component)]
+struct PlayerTankCanon;
+
+#[derive(Component)]
+struct EnemyTankTurret;
+
+#[derive(Component)]
+struct EnemyTankCanon;
+
+fn is_descendant_of(
+    mut current: Entity,
+    parents: &Query<&Parent>,
+    target_player_root: &Query<Entity, With<PlayerTank>>,
+    target_enemy_root: &Query<Entity, With<EnemyTank>>,
+) -> Option<&'static str> {
+    // Returns "player" or "enemy" depending on which root this entity belongs to
+    loop {
+        if target_player_root.get(current).is_ok() {
+            return Some("player");
+        }
+        if target_enemy_root.get(current).is_ok() {
+            return Some("enemy");
+        }
+        if let Ok(parent) = parents.get(current) {
+            current = parent.get();
+        } else {
+            break;
+        }
+    }
+    None
+}
 
 fn tag_turret_after_spawn(
     mut commands: Commands,
-    query: Query<(Entity, &Name), Added<Name>>,
+    query: Query<(Entity, &Name, Option<&Parent>), Added<Name>>,
+    parents: Query<&Parent>,
+    player_roots: Query<Entity, With<PlayerTank>>,
+    enemy_roots: Query<Entity, With<EnemyTank>>,
 ) {
-    for (entity, name) in query.iter() {
-        if name.as_str().to_lowercase().contains("tankfree_canon") {
-            commands.entity(entity).insert(TankCanon);
-        }
-        else if name.as_str().to_lowercase().contains("tankfree_tower") {
-            commands.entity(entity).insert(TankTurret);
+    for (entity, name, direct_parent) in query.iter() {
+        let owner = if let Some(p) = direct_parent {
+            is_descendant_of(p.get(), &parents, &player_roots, &enemy_roots)
+        } else {
+            is_descendant_of(entity, &parents, &player_roots, &enemy_roots)
+        };
+
+        let lname = name.as_str().to_lowercase();
+        if lname.contains("tankfree_canon") {
+            match owner {
+                Some("player") => commands.entity(entity).insert(PlayerTankCanon),
+                Some("enemy") => commands.entity(entity).insert(EnemyTankCanon),
+                _ => {}
+            }
+        } else if lname.contains("tankfree_tower") {
+            match owner {
+                Some("player") => commands.entity(entity).insert(PlayerTankTurret),
+                Some("enemy") => commands.entity(entity).insert(EnemyTankTurret),
+                _ => {}
+            }
         }
     }
 }
 
 fn elevate_canon(
     keys: Res<ButtonInput<KeyCode>>,
-    mut query: Query<&mut Transform, With<TankCanon>>,
+    mut query: Query<&mut Transform, With<PlayerTankCanon>>,
     time: Res<Time>,
 ) {
     if let Ok(mut transform) = query.get_single_mut() {
@@ -147,7 +215,7 @@ fn elevate_canon(
 
 fn rotate_turret(
     keys: Res<ButtonInput<KeyCode>>,
-    mut query: Query<&mut Transform, With<TankTurret>>,
+    mut query: Query<&mut Transform, With<PlayerTankTurret>>,
     time: Res<Time>,
 ) {
     if let Ok(mut transform) = query.get_single_mut() {
@@ -162,13 +230,10 @@ fn rotate_turret(
     }
 }
 
-#[derive(Component)]
-struct Tank;
-
 fn tank_movement(
     keyboard: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
-    mut query: Query<&mut Transform, With<Tank>>
+    mut query: Query<&mut Transform, With<PlayerTank>>
 )  {
     let mut transform = query.single_mut();
     let mut direction = 0.0;
@@ -214,7 +279,7 @@ impl Camera {
 }
 
 fn camera_follow(
-    tank_query: Query<&Transform, (With<Tank>, Without<Camera>)>,
+    tank_query: Query<&Transform, (With<PlayerTank>, Without<Camera>)>,
     mouse: Res<ButtonInput<MouseButton>>,
     mut query: Query<(&mut Camera, &mut PanOrbitCamera)>
 )   {
@@ -252,7 +317,7 @@ struct Projectile;
 fn spawn_projectile(
     keyboard: Res<ButtonInput<KeyCode>>,
     mut commands: Commands,
-    tank_cannon_transform_query: Query<&GlobalTransform, With<TankCanon>>,
+    tank_cannon_transform_query: Query<&GlobalTransform, With<PlayerTankCanon>>,
     asset_server: Res<AssetServer>
 ){
     if keyboard.just_pressed(KeyCode::Space) {
@@ -278,6 +343,49 @@ fn spawn_projectile(
     }
 }
 
+fn enemy_shoot_player(
+    time: Res<Time>,
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    player_query: Query<&GlobalTransform, With<PlayerTank>>,
+    mut ai_query: Query<&mut EnemyAI, With<EnemyTank>>,
+    enemy_cannon_query: Query<&GlobalTransform, With<EnemyTankCanon>>,
+) {
+    let Ok(player_transform) = player_query.get_single() else { return; };
+
+    // Only one enemy for now
+    let Ok(mut ai) = ai_query.get_single_mut() else { return; };
+
+    ai.shoot_cooldown -= time.delta_secs();
+    if ai.shoot_cooldown > 0.0 {
+        return;
+    }
+    ai.shoot_cooldown = 2.0;
+
+    if let Ok(enemy_cannon_transform) = enemy_cannon_query.get_single() {
+        let cannon_pos = enemy_cannon_transform.translation();
+        let player_pos = player_transform.translation();
+
+        let mut direction = (player_pos - cannon_pos);
+        if direction.length_squared() > 0.0001 {
+            direction = direction.normalize();
+        } else {
+            return;
+        }
+
+        let launch_speed = 15.0;
+        let velocity = direction * launch_speed;
+
+        commands.spawn((
+            Transform::from_translation(cannon_pos + direction * 0.7).with_rotation(Quat::from_rotation_y(std::f32::consts::PI)),
+            Projectile,
+            SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("shell.glb"))),
+            Collider::cuboid(0.05, 0.05, 0.05),
+            RigidBody::Dynamic,
+            Velocity::linear(velocity),
+        ));
+    }
+}
     
 fn move_projectile(
     time: Res<Time>,
